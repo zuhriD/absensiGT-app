@@ -20,9 +20,11 @@ class AuthAPIController extends Controller {
         if(Imam::where('username', $validatedData['username'])->exists()){
             $user = Imam::where('username', $validatedData['username'])->first();
             if(password_verify($validatedData['password'], $user->password)){
+                $token = $user->createToken('authToken')->plainTextToken;
                 return response()->json([
                     'status' => true,
                     'data' => $user,
+                    'token' => $token,
                     'message' => 'Login Berhasil'
                 ], 200);
             }else{

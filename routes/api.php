@@ -20,3 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // route api login
 Route::post('login', [App\Http\Controllers\API\AuthAPIController::class, 'login'])->name('login');
+
+// route api jadwal
+Route::middleware('auth:sanctum')->get('jadwal/{id}', [App\Http\Controllers\API\APIController::class, 'showAllJadwalByImam'])->name('jadwal');
+Route::middleware('auth:sanctum')->put('jadwal/{id}/{id_jadwal}', [App\Http\Controllers\API\APIController::class, 'editStatusJadwalByImam'])->name('jadwal');

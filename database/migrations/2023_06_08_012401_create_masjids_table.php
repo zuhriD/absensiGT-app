@@ -16,8 +16,8 @@ class CreateMasjidsTable extends Migration
         Schema::create('masjids', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('lokasi');
-            $table->string('foto');
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }

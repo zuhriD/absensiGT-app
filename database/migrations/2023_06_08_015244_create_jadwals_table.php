@@ -19,6 +19,9 @@ class CreateJadwalsTable extends Migration
             $table->foreignId('masjid_id')->constrained('masjids')->onDelete('cascade');
             $table->foreignId('activity_id')->constrained('activities')->onDelete('cascade');
             $table->date('date');
+            $table->string('keterangan')->nullable();
+            $table->string('bukti')->nullable();
+            $table->enum('status', ['belum_absen', 'sudah_absen']);
             $table->timestamps();
         });
     }

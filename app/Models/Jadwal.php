@@ -13,7 +13,10 @@ class Jadwal extends Model
         'imam_id',
         'masjid_id',
         'activities_id',
+        'keterangan',
+        'bukti',
         'date',
+        'status',
     ];
 
     public function imam()
