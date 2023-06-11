@@ -24,13 +24,13 @@ class APIController extends Controller
     {
         $validatedData = $request->validate([
             'keterangan' => 'required',
+            'bukti' => 'required', 
             'status' => 'required',
-            'bukti' => 'required',
         ]);
-        dd($request->all());
-
-        $jadwal = Jadwal::find($id);
-        // $jadwal->status = $validatedData['status'];
+        $jadwal = Jadwal::where('imam_id', $id)->where('id', $id_jadwal)->first();
+        $jadwal->keterangan = $validatedData['keterangan'];
+        $jadwal->bukti = $validatedData['bukti'];
+        $jadwal->status = $validatedData['status'];
         $jadwal->save();
 
         return response()->json([
