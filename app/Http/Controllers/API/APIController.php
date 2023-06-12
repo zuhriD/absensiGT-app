@@ -15,6 +15,7 @@ class APIController extends Controller
         $formattedJadwal = $jadwal->map(function ($item) {
             return [
                 'id' => $item->id,
+                'imam_id' => $item->imam->id,
                 'nama_imam' => $item->imam->name,
                 'nama_masjid' => $item->masjid->name,
                 'latitude_masjid' => $item->masjid->latitude,
