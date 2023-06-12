@@ -12,7 +12,7 @@ class Jadwal extends Model
     protected $fillable = [
         'imam_id',
         'masjid_id',
-        'activities_id',
+        'activity_id',
         'keterangan',
         'bukti',
         'date',
@@ -29,7 +29,7 @@ class Jadwal extends Model
         return $this->belongsTo(Masjid::class);
     }
 
-    public function activities()
+    public function activity()
     {
         return $this->belongsTo(Activities::class);
     }

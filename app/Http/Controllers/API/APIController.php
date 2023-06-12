@@ -11,10 +11,29 @@ class APIController extends Controller
     // make function show all data jadwal by imam
     public function showAllJadwalByImam($id)
     {
-        $jadwal = Jadwal::where('imam_id', $id)->get();
+        $jadwal = Jadwal::with('imam', 'masjid', 'activity')->where('imam_id', $id)->get();
+        $formattedJadwal = $jadwal->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nama_imam' => $item->imam->name,
+                'nama_masjid' => $item->masjid->name,
+                'latitude_masjid' => $item->masjid->latitude,
+                'longitude_masjid' => $item->masjid->longitude,
+                'nama_aktivitas' => $item->activity->name,
+                'date' => $item->date,
+                'keterangan' => $item->keterangan,
+                'bukti' => $item->bukti,
+                'status' => $item->status,      
+                'timestamps' => [
+                    'created_at' => $item->created_at,  
+                    'updated_at' => $item->updated_at,
+                ],
+            ];
+        });
+    
         return response()->json([
             'status' => true,
-            'data' => $jadwal,
+            'data' => $formattedJadwal,
             'message' => 'Berhasil menampilkan data jadwal'
         ], 200);
     }
@@ -27,7 +46,8 @@ class APIController extends Controller
             'bukti' => 'required', 
             'status' => 'required',
         ]);
-        $jadwal = Jadwal::where('imam_id', $id)->where('id', $id_jadwal)->first();
+        $jadwal = Jadwal::with('imam', 'masjid', 'activity')->
+        where('imam_id', $id)->where('id', $id_jadwal)->first();
         $jadwal->keterangan = $validatedData['keterangan'];
         $jadwal->bukti = $validatedData['bukti'];
         $jadwal->status = $validatedData['status'];

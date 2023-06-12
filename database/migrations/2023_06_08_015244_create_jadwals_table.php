@@ -21,7 +21,7 @@ class CreateJadwalsTable extends Migration
             $table->date('date');
             $table->string('keterangan')->nullable();
             $table->string('bukti')->nullable();
-            $table->enum('status', ['belum_absen', 'sudah_absen']);
+            $table->enum('status', ['belum_absen', 'sudah_absen', 'izin']);
             $table->timestamps();
         });
     }
